@@ -1,7 +1,9 @@
 package ru.javarush.cryptoanaliser.osypenko;
 
+import ru.javarush.cryptoanaliser.osypenko.application.Application;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello git");
+        Application.startApplication();
     }
 }
