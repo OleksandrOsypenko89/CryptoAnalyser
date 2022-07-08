@@ -4,7 +4,7 @@ import ru.javarush.cryptoanaliser.osypenko.application.Application;
 import ru.javarush.cryptoanaliser.osypenko.constants.Strings;
 import ru.javarush.cryptoanaliser.osypenko.textencryption.TextEncryption;
 
-public class Question1 {
+public class StartQuestion {
     public static void question() {
         System.out.println(Strings.HELLO + "\n" +
                 Strings.FUNCTION1 + "\n" +

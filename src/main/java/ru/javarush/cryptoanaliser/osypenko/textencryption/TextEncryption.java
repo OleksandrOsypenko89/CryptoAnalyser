@@ -5,33 +5,39 @@ import ru.javarush.cryptoanaliser.osypenko.constants.Alphabet;
 import ru.javarush.cryptoanaliser.osypenko.constants.Strings;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Path;
 
 public class TextEncryption {
     public static void function1() {
-        System.out.println(Strings.FUNCTION1 + Strings.FROM);
+        System.out.println(Strings.FROM);
 
-        try (FileInputStream fileInputStream = new FileInputStream(Application.scan().nextLine()); // D:\Testing\text.txt
-             Reader reader = new InputStreamReader(fileInputStream);
-             BufferedReader bufferedReader = new BufferedReader(reader)) {
+        Path path = Path.of(Application.scan().nextLine());
+
+        try (FileChannel fileChannel = FileChannel.open(path)) {
+            ByteBuffer inBuffer = ByteBuffer.allocate(64);
 
             System.out.println(Strings.ENCRYPTION);
             int key = Application.scan().nextInt();
 
-            while (bufferedReader.ready()) {
+            while (fileChannel.read(inBuffer) >= 0) {
+                inBuffer.flip();
 
-                char[] bufferChar = bufferedReader.readLine().toCharArray();
-
-                for (int i = 0; i < Alphabet.setAlphabet().length; i++) {
-                    for (char c : bufferChar) {
-                        if (Alphabet.setAlphabet()[i] == c) {
-                            System.out.print(Alphabet.setAlphabet()[i + key]);
+                while (inBuffer.hasRemaining()) {
+                    byte value = inBuffer.get();
+                    for (int i = 0; i < Alphabet.resAlphabet.length; i++) {
+                        if (Alphabet.resAlphabet[i] == (char) value) {
+                            System.out.print(Alphabet.resAlphabet[(i + key) % Alphabet.resAlphabet.length]);
                         }
                     }
                 }
+                inBuffer.clear();
             }
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
+

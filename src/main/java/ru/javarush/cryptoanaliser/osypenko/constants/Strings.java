@@ -8,7 +8,7 @@ public class Strings {
     public static final String FUNCTION4 = "4. Расшифровка с помощью статистического анализа текста";
     public static final String QUESTIONFUNCTION = "Для выбора введите соответствующий номер функции";
     public static final String INCORRECT = "\nНе правильно введено значение. Повторите еще.\n";
-    public static final String FROM = "\nУкажите путь к файлу";
-    public static final String ENCRYPTION = "Укажите число от 1 до 40 это будет ключ шифрования";
+    public static final String FROM = "Укажите путь к файлу";
+    public static final String ENCRYPTION = "Укажите число это будет ключ шифрования";
 }
 
