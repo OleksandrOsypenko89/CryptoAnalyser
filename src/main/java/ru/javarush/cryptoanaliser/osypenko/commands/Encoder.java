@@ -2,6 +2,7 @@ package ru.javarush.cryptoanaliser.osypenko.commands;
 
 import ru.javarush.cryptoanaliser.osypenko.application.Application;
 import ru.javarush.cryptoanaliser.osypenko.constants.Alphabet;
+import ru.javarush.cryptoanaliser.osypenko.exception.ApplicationException;
 
 import java.io.*;
 
@@ -29,7 +30,7 @@ public class Encoder {
                 writer.write(Alphabet.JUMP);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ApplicationException(e);
         }
     }
 }

@@ -1,6 +1,7 @@
 package ru.javarush.cryptoanaliser.osypenko.controller;
 
 import ru.javarush.cryptoanaliser.osypenko.application.Application;
+import ru.javarush.cryptoanaliser.osypenko.commands.Decoder;
 import ru.javarush.cryptoanaliser.osypenko.commands.Encoder;
 
 public class Controller {
@@ -22,6 +23,7 @@ public class Controller {
                 Encoder.encoder();
                 break;
             } else if (numberFunction.equals("2")) {
+                Decoder.decoder();
                 break;
             } else if (numberFunction.equals("3")) {
                 break;
