@@ -1,11 +1,11 @@
 package ru.javarush.cryptoanaliser.osypenko.application;
 
-import ru.javarush.cryptoanaliser.osypenko.controller.Controller;
+import ru.javarush.cryptoanaliser.osypenko.controller.QuestionStart;
 import java.util.Scanner;
 
 public class Application {
     public static void run() {
-        Controller.question();
+        QuestionStart.questionStart();
     }
     public static Scanner scan() {
         return new Scanner(System.in);
