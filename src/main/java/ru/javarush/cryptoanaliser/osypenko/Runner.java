@@ -1,9 +1,9 @@
 package ru.javarush.cryptoanaliser.osypenko;
 
-import ru.javarush.cryptoanaliser.osypenko.application.Application;
+import ru.javarush.cryptoanaliser.osypenko.controller.QuestionStart;
 
 public class Runner {
     public static void main(String[] args) {
-        Application.run();
+        QuestionStart.questionStart();
     }
 }

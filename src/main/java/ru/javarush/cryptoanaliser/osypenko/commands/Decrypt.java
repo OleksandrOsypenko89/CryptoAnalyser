@@ -1,14 +1,14 @@
 package ru.javarush.cryptoanaliser.osypenko.commands;
 
-import ru.javarush.cryptoanaliser.osypenko.application.Application;
+import ru.javarush.cryptoanaliser.osypenko.scan.Application;
 import ru.javarush.cryptoanaliser.osypenko.constants.Alphabet;
 import ru.javarush.cryptoanaliser.osypenko.controller.QuestionExit;
 import ru.javarush.cryptoanaliser.osypenko.exception.ApplicationException;
 
 import java.io.*;
 
-public class Encoder {
-    public static void encoder() {
+public class Decrypt {
+    public static void decoder() {
         try {
             System.out.println("Укажите первый путь к файлу");
             FileInputStream fis = new FileInputStream(Application.scan().nextLine());
@@ -16,7 +16,7 @@ public class Encoder {
             BufferedReader bufferedReader = new BufferedReader(reader);
             System.out.println("Укажите второй путь к файлу");
             Writer writer = new FileWriter(Application.scan().nextLine());
-            System.out.println("Укажите число это будет ключ шифрования");
+            System.out.println("Укажите число это будет ключ расшифровки");
             int key = Application.scan().nextInt();
 
             while (bufferedReader.ready()) {
@@ -24,11 +24,11 @@ public class Encoder {
                 for (char c : value) {
                     for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
                         if (Alphabet.fullAlphabet[i] == c) {
-                            int res = (i + key) % Alphabet.fullAlphabet.length;
-                            if (res < Alphabet.fullAlphabet.length) {
+                            int res = (i - key) % Alphabet.fullAlphabet.length;
+                            if (res > 0) {
                                 writer.write(Alphabet.fullAlphabet[res]);
                             } else {
-                                writer.write(Alphabet.fullAlphabet[res - Alphabet.fullAlphabet.length]);
+                                writer.write(Alphabet.fullAlphabet[Alphabet.fullAlphabet.length - Math.abs(res) - 1]);
                             }
                         }
                     }
@@ -46,5 +46,3 @@ public class Encoder {
         QuestionExit.questionExit();
     }
 }
-
-

@@ -1,6 +1,6 @@
 package ru.javarush.cryptoanaliser.osypenko.controller;
 
-import ru.javarush.cryptoanaliser.osypenko.application.Application;
+import ru.javarush.cryptoanaliser.osypenko.scan.Application;
 
 public class QuestionExit {
     public static void questionExit(){
@@ -19,10 +19,10 @@ public class QuestionExit {
                 QuestionStart.questionStart();
                 break;
             } else if (numberFunction.equals("2")) {
-                System.out.println("\u001b[32;1m До скорой встречи \u001b[0m");
+                System.out.println("\u001b[32;1mДо скорой встречи \u001b[0m");
                 break;
             } else {
-                System.out.print("\u001b[31;1m Не правильно введено значение. Повторите еще. \u001b[0m");
+                System.out.println("\u001b[31;1mНе правильно введено значение. Повторите еще. \u001b[0m");
             }
         }
     }
