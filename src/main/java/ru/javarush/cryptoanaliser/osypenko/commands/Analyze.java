@@ -1,9 +1,9 @@
 package ru.javarush.cryptoanaliser.osypenko.commands;
 
-import ru.javarush.cryptoanaliser.osypenko.controller.QuestionExit;
+import ru.javarush.cryptoanaliser.osypenko.controller.QuestionStart;
 
 public class Analyze {
     public static void analyze() {
-        QuestionExit.questionExit();
+        QuestionStart.questionStart();
     }
 }
