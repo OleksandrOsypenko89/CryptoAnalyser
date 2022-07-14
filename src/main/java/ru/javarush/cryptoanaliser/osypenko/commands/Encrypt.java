@@ -23,7 +23,6 @@ public class Encrypt {
                     break;
 //                } else if (text.equals("")) {
 //                    Path path = Path.of(PathFinder.getRoot());
-//                    System.out.println(path);
                 }
                 Path inPath = Path.of(text);
 

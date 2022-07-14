@@ -42,7 +42,7 @@ public class Decrypt {
 
                     while (bufferedReader.ready()) {
                         char[] value = bufferedReader.readLine().toCharArray();
-                        for (char c: value) {
+                        for (char c : value) {
                             for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
                                 if (Alphabet.fullAlphabet[i] == c) {
                                     int res = (i - key) % Alphabet.fullAlphabet.length;

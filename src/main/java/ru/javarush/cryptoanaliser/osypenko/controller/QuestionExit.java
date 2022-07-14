@@ -4,14 +4,14 @@ import ru.javarush.cryptoanaliser.osypenko.scan.Scan;
 
 public class QuestionExit {
     public static void questionExit() {
-        System.out.print("\u001b[34m" + "-".repeat(70));
+        System.out.print("\u001b[34m" + "-".repeat(80));
         String textQuestion = """
                 \nВыберете команду которую Вы хотите выполнить?\s
                 menu что бы Продолжить\s
                 exit что бы Выйти\s
                 \nДля выбора введите соответствующую команду""";
         System.out.println(textQuestion);
-        System.out.println("-".repeat(70) + "\u001b[0m");
+        System.out.println("-".repeat(80) + "\u001b[0m");
         while (true) {
             String numberFunction = Scan.scan().next();
             if (numberFunction.equalsIgnoreCase("menu")) {
