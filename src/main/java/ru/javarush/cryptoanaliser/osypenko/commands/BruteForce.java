@@ -14,9 +14,10 @@ public class BruteForce {
     public static void bruteForce() {
         try {
             while (true) {
-                System.out.println("Укажите путь к файлу");
+                System.out.println("Укажите путь к файлу или нажмите Enter для получения доступа к корневому файлу");
                 String text = Scan.scan().nextLine();
                 if (text.equalsIgnoreCase("exit")) {
+                    System.out.println("До скорой встречи");
                     break;
                 } else if (text.equalsIgnoreCase("menu")) {
                     QuestionStart.questionStart();
@@ -25,57 +26,61 @@ public class BruteForce {
                 Path inPath = Path.of(text);
 
                 if (Files.exists(inPath)) {
-                    FileInputStream fis = new FileInputStream(text);
                     FileInputStream fis1 = new FileInputStream(text);
-
-                    Reader reader = new InputStreamReader(fis);
                     Reader reader1 = new InputStreamReader(fis1);
-
-                    BufferedReader bufferedReader = new BufferedReader(reader);
                     BufferedReader bufferedReader1 = new BufferedReader(reader1);
-
-                    Writer writer = new FileWriter(inPath.getParent() + File.separator + "bruteforce.txt");
 
                     String[] keyWord = new String[]{"нет", "как", "или", "все", "это", "вам"};
 
-                    int num = 20;
-                    String temp;
+                    int num = 0;
+                    String temp = "";
                     int key = 0;
 
                     while (num < Alphabet.fullAlphabet.length) {
-                        while (bufferedReader.ready()) {
-                            temp = bufferedReader.readLine();
-                            char[] value = temp.toCharArray();
-                            for (char c : value) {
-                                for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
-                                    if (Alphabet.fullAlphabet[i] == c) {
-                                        int res = (i - num) % Alphabet.fullAlphabet.length;
-                                        if (res < 0) {
-                                            res = Alphabet.fullAlphabet[Alphabet.fullAlphabet.length - Math.abs(res)];
-                                        }
-                                        char[] t = new char[Alphabet.fullAlphabet[res]];
-                                        temp = String.valueOf(t);
+                        while (bufferedReader1.ready()) {
+                        char[] value = bufferedReader1.readLine().toCharArray();
+                        for (char c : value) {
+                            for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
+                                if (Alphabet.fullAlphabet[i] == c) {
+                                    int res = (i - num) % Alphabet.fullAlphabet.length;
+
+
+                                    if (res > Alphabet.fullAlphabet.length) { //???
+                                        res = Alphabet.fullAlphabet[Alphabet.fullAlphabet.length - Math.abs(res)];
                                     }
-                                }
-                            }
-                            String[] a = temp.split(" ");
-                            for (String b : a) {
-                                if (b.equalsIgnoreCase(keyWord[0]) ||
-                                        b.equalsIgnoreCase(keyWord[1]) ||
-                                        b.equalsIgnoreCase(keyWord[2]) ||
-                                        b.equalsIgnoreCase(keyWord[3]) ||
-                                        b.equalsIgnoreCase(keyWord[4]) ||
-                                        b.equalsIgnoreCase(keyWord[5])) {
-                                    key = num;
-                                    break;
+                                    char[] t = new char[Alphabet.fullAlphabet[res]];
+                                    temp = String.valueOf(t);
                                 }
                             }
                         }
+                        String[] a = temp.split(" ");
+                        for (String b : a) {
+                            if (b.equalsIgnoreCase(keyWord[0]) ||
+                                    b.equalsIgnoreCase(keyWord[1]) ||
+                                    b.equalsIgnoreCase(keyWord[2]) ||
+                                    b.equalsIgnoreCase(keyWord[3]) ||
+                                    b.equalsIgnoreCase(keyWord[4]) ||
+                                    b.equalsIgnoreCase(keyWord[5])) {
+                                key = num;
+                                break;
+                            }
+                        }
+                        }
                         num++;
                     }
+                    fis1.close();
+                    reader1.close();
+                    bufferedReader1.close();
 
-                    while (bufferedReader1.ready()) {
-                        char[] value = bufferedReader1.readLine().toCharArray();
+                    System.out.println(temp);
+
+                    FileInputStream fis2 = new FileInputStream(text);
+                    Reader reader2 = new InputStreamReader(fis2);
+                    BufferedReader bufferedReader2 = new BufferedReader(reader2);
+                    Writer writer = new FileWriter(inPath.getParent() + File.separator + "bruteforce.txt");
+
+                    while (bufferedReader2.ready()) {
+                        char[] value = bufferedReader2.readLine().toCharArray();
                         for (char c : value) {
                             for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
                                 if (Alphabet.fullAlphabet[i] == c) {
@@ -91,18 +96,15 @@ public class BruteForce {
                         writer.write(Alphabet.JUMP);
                     }
 
-                    fis.close();
-                    fis1.close();
-                    reader.close();
-                    reader1.close();
-                    bufferedReader.close();
-                    bufferedReader1.close();
+                    fis2.close();
+                    reader2.close();
+                    bufferedReader2.close();
                     writer.close();
-                    System.out.println("\u001b[32;1mВыполнено! \nСоздан файл \u001b[0mbruteforce.txt \u001b[32;1mпо адресу\u001b[0m " + inPath.getParent());
+                    System.out.println("Выполнено! \nСоздан файл bruteforce.txt по адресу " + inPath.getParent());
 
                     QuestionExit.questionExit();
                 } else if (Files.isDirectory(inPath) || !Files.exists(inPath)) {
-                    System.out.println("\u001b[31;1mПо данному адресу файл не найден. Введите еще раз! \u001b[0m");
+                    System.err.println("По данному адресу файл не найден. Введите еще раз!");
                     Decrypt.decrypt();
                 }
                 break;

@@ -8,7 +8,7 @@ import ru.javarush.cryptoanaliser.osypenko.commands.Encrypt;
 
 public class QuestionStart {
     public static void questionStart() {
-        System.out.println("\u001b[34m" + "-".repeat(80));
+        System.out.println("-".repeat(80));
         String textQuestion = """
                 Выберете функцию которую Вы хотите выполнить?\s
                 1. Шифровка текста\s
@@ -19,22 +19,22 @@ public class QuestionStart {
                 menu - для возврата в главное меню. (на любом этапе выполнения программы) \s
                 \nДля выбора введите соответствующий номер функции""";
         System.out.println(textQuestion);
-        System.out.println("-".repeat(80) + "\u001b[0m");
+        System.out.println("-".repeat(80));
         questionRun();
     }
     public static void questionRun() {
         while (true) {
             String numberFunction = Scan.scan().next();
             if (numberFunction.equals("1")) {
-                System.out.println("\u001b[32;1mВы выбрали Шифрование текста \u001b[0m");
+                System.out.println("Вы выбрали Шифрование текста");
                 Encrypt.encrypt();
                 break;
             } else if (numberFunction.equals("2")) {
-                System.out.println("\u001b[32;1mВы выбрали Дешифрование текста \u001b[0m");
+                System.out.println("Вы выбрали Дешифрование текста");
                 Decrypt.decrypt();
                 break;
             } else if (numberFunction.equals("3")) {
-                System.out.println("\u001b[32;1mВы выбрали Расшифровка текста с помощью brute force (перебор всех вариантов)\u001b[0m");
+                System.out.println("Вы выбрали Расшифровка текста с помощью brute force (перебор всех вариантов)");
                 BruteForce.bruteForce();
                 break;
             } else if (numberFunction.equals("4")) {
@@ -42,12 +42,12 @@ public class QuestionStart {
                 Analyze.analyze();
                 break;
             } else if (numberFunction.equalsIgnoreCase("exit")) {
-                System.out.println("\u001b[32;1mДо скорой встречи \u001b[0m");
+                System.out.println("До скорой встречи");
                 break;
             } else if (numberFunction.equalsIgnoreCase("menu")) {
-                System.out.println("\u001b[31;1mВы уже находитесь в главном меню. \u001b[0m");
+                System.err.println("Вы уже находитесь в главном меню.");
             } else {
-                System.out.println("\u001b[31;1mНе правильно введено значение. Повторите еще. \u001b[0m");
+                System.err.println("Не правильно введено значение. Повторите еще.");
             }
         }
     }

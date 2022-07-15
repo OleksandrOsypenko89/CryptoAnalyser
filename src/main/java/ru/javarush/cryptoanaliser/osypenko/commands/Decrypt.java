@@ -5,6 +5,7 @@ import ru.javarush.cryptoanaliser.osypenko.controller.QuestionStart;
 import ru.javarush.cryptoanaliser.osypenko.scan.Scan;
 import ru.javarush.cryptoanaliser.osypenko.constants.Alphabet;
 import ru.javarush.cryptoanaliser.osypenko.exception.ApplicationException;
+import ru.javarush.cryptoanaliser.osypenko.util.PathFinder;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -14,18 +15,24 @@ public class Decrypt {
     public static void decrypt() {
         try {
             while (true) {
-                System.out.println("Укажите путь к файлу");
+                System.out.println("Укажите путь к файлу или нажмите Enter для получения доступа к корневому файлу");
                 String text = Scan.scan().nextLine();
-                if (text.equalsIgnoreCase("exit")) {
-                    break;
-                } else if (text.equalsIgnoreCase("menu")) {
-                    QuestionStart.questionStart();
-                    break;
+                Path inPath;
+                if (!text.equals("")) {
+                    if (text.equalsIgnoreCase("exit")) {
+                        System.out.println("До скорой встречи");
+                        break;
+                    } else if (text.equalsIgnoreCase("menu")) {
+                        QuestionStart.questionStart();
+                        break;
+                    }
+                    inPath = Path.of(text);
+                } else {
+                    inPath = Path.of(PathFinder.getRoot() + "encrypt.txt");
                 }
-                Path inPath = Path.of(text);
 
                 if (Files.exists(inPath)) {
-                    FileInputStream fis = new FileInputStream(text);
+                    FileInputStream fis = new FileInputStream(String.valueOf(inPath));
                     Reader reader = new InputStreamReader(fis);
                     BufferedReader bufferedReader = new BufferedReader(reader);
                     Writer writer = new FileWriter(inPath.getParent() + File.separator + "decrypt.txt");
@@ -33,6 +40,7 @@ public class Decrypt {
                     System.out.println("Укажите число это будет ключ шифрования");
                     String num = Scan.scan().next();
                     if (num.equalsIgnoreCase("exit")) {
+                        System.out.println("До скорой встречи");
                         break;
                     } else if (num.equalsIgnoreCase("menu")) {
                         QuestionStart.questionStart();
@@ -61,11 +69,11 @@ public class Decrypt {
                     reader.close();
                     bufferedReader.close();
                     writer.close();
-                    System.out.println("\u001b[32;1mВыполнено! \nСоздан файл \u001b[0mdecrypt.txt \u001b[32;1mпо адресу\u001b[0m " + inPath.getParent());
+                    System.out.println("Выполнено! \nСоздан файл decrypt.txt по адресу " + inPath.getParent());
 
                     QuestionExit.questionExit();
                 } else if (Files.isDirectory(inPath) || !Files.exists(inPath)) {
-                    System.out.println("\u001b[31;1mПо данному адресу файл не найден. Введите еще раз! \u001b[0m");
+                    System.err.println("По данному адресу файл не найден. Введите еще раз!");
                     Decrypt.decrypt();
                 }
                 break;
