@@ -1,5 +1,6 @@
 package ru.javarush.cryptoanaliser.osypenko.commands;
 
+import ru.javarush.cryptoanaliser.osypenko.constants.ConstantText;
 import ru.javarush.cryptoanaliser.osypenko.controller.QuestionExit;
 import ru.javarush.cryptoanaliser.osypenko.controller.QuestionStart;
 import ru.javarush.cryptoanaliser.osypenko.scan.Scan;
@@ -15,38 +16,38 @@ public class Decrypt {
     public static void decrypt() {
         try {
             while (true) {
-                System.out.println("Укажите путь к файлу или нажмите Enter для получения доступа к корневому файлу");
-                String text = Scan.scan().nextLine();
+                System.out.println(ConstantText.ENTERTHEADDRESS);
+                String scanRes = Scan.scan().nextLine();
                 Path inPath;
-                if (!text.equals("")) {
-                    if (text.equalsIgnoreCase("exit")) {
-                        System.out.println("До скорой встречи");
+                if (!scanRes.equals("")) {
+                    if (scanRes.equalsIgnoreCase(ConstantText.EXIT)) {
+                        System.out.println(ConstantText.GOODBYE);
                         break;
-                    } else if (text.equalsIgnoreCase("menu")) {
+                    } else if (scanRes.equalsIgnoreCase(ConstantText.MENU)) {
                         QuestionStart.questionStart();
                         break;
                     }
-                    inPath = Path.of(text);
+                    inPath = Path.of(scanRes);
                 } else {
-                    inPath = Path.of(PathFinder.getRoot() + "encrypt.txt");
+                    inPath = Path.of(PathFinder.getRoot() + ConstantText.ENCRYPTNAMEFILE);
                 }
 
                 if (Files.exists(inPath)) {
                     FileInputStream fis = new FileInputStream(String.valueOf(inPath));
                     Reader reader = new InputStreamReader(fis);
                     BufferedReader bufferedReader = new BufferedReader(reader);
-                    Writer writer = new FileWriter(inPath.getParent() + File.separator + "decrypt.txt");
+                    Writer writer = new FileWriter(inPath.getParent() + File.separator + ConstantText.DECRYPTNAMEFILE);
 
-                    System.out.println("Укажите число это будет ключ шифрования");
-                    String num = Scan.scan().next();
-                    if (num.equalsIgnoreCase("exit")) {
-                        System.out.println("До скорой встречи");
+                    System.out.println(ConstantText.NUMBERKEY);
+                    String numKey = Scan.scan().next();
+                    if (numKey.equalsIgnoreCase(ConstantText.EXIT)) {
+                        System.out.println(ConstantText.GOODBYE);
                         break;
-                    } else if (num.equalsIgnoreCase("menu")) {
+                    } else if (numKey.equalsIgnoreCase(ConstantText.MENU)) {
                         QuestionStart.questionStart();
                         break;
                     }
-                    int key = Integer.parseInt(num);
+                    int key = Integer.parseInt(numKey);
 
                     while (bufferedReader.ready()) {
                         char[] value = bufferedReader.readLine().toCharArray();
@@ -69,11 +70,11 @@ public class Decrypt {
                     reader.close();
                     bufferedReader.close();
                     writer.close();
-                    System.out.println("Выполнено! \nСоздан файл decrypt.txt по адресу " + inPath.getParent());
+                    System.out.println("Выполнено! \nСоздан файл " + ConstantText.DECRYPTNAMEFILE + " по адресу " + inPath.getParent() + File.separator);
 
                     QuestionExit.questionExit();
                 } else if (Files.isDirectory(inPath) || !Files.exists(inPath)) {
-                    System.err.println("По данному адресу файл не найден. Введите еще раз!");
+                    System.err.println(ConstantText.NOTENTEREDCORRECTY);
                     Decrypt.decrypt();
                 }
                 break;

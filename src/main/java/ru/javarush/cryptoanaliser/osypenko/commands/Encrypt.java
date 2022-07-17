@@ -1,5 +1,6 @@
 package ru.javarush.cryptoanaliser.osypenko.commands;
 
+import ru.javarush.cryptoanaliser.osypenko.constants.ConstantText;
 import ru.javarush.cryptoanaliser.osypenko.controller.QuestionExit;
 import ru.javarush.cryptoanaliser.osypenko.scan.Scan;
 import ru.javarush.cryptoanaliser.osypenko.constants.Alphabet;
@@ -15,18 +16,18 @@ public class Encrypt {
     public static void encrypt() {
         try {
             while (true) {
-                System.out.println("Укажите путь к файлу или нажмите Enter для получения доступа к корневому файлу");
-                String text = Scan.scan().nextLine();
+                System.out.println(ConstantText.ENTERTHEADDRESS);
+                String scanRes = Scan.scan().nextLine();
                 Path inPath;
-                if (!text.equals("")) {
-                    if (text.equalsIgnoreCase("exit")) {
-                        System.out.println("До скорой встречи");
+                if (!scanRes.equals("")) {
+                    if (scanRes.equalsIgnoreCase(ConstantText.EXIT)) {
+                        System.out.println(ConstantText.GOODBYE);
                         break;
-                    } else if (text.equalsIgnoreCase("menu")) {
+                    } else if (scanRes.equalsIgnoreCase(ConstantText.MENU)) {
                         QuestionStart.questionStart();
                         break;
                     }
-                    inPath = Path.of(text);
+                    inPath = Path.of(scanRes);
                 } else {
                     inPath = Path.of(PathFinder.getRoot() + "text.txt");
                 }
@@ -35,18 +36,18 @@ public class Encrypt {
                     FileInputStream fis = new FileInputStream(String.valueOf(inPath));
                     Reader reader = new InputStreamReader(fis);
                     BufferedReader bufferedReader = new BufferedReader(reader);
-                    Writer writer = new FileWriter(inPath.getParent() + File.separator + "encrypt.txt");
+                    Writer writer = new FileWriter(inPath.getParent() + File.separator + ConstantText.ENCRYPTNAMEFILE);
 
-                    System.out.println("Укажите число это будет ключ шифрования");
-                    String num = Scan.scan().next();
-                    if (num.equalsIgnoreCase("exit")) {
-                        System.out.println("До скорой встречи");
+                    System.out.println(ConstantText.NUMBERKEY);
+                    String numKey = Scan.scan().next();
+                    if (numKey.equalsIgnoreCase(ConstantText.EXIT)) {
+                        System.out.println(ConstantText.GOODBYE);
                         break;
-                    } else if (num.equalsIgnoreCase("menu")) {
+                    } else if (numKey.equalsIgnoreCase(ConstantText.MENU)) {
                         QuestionStart.questionStart();
                         break;
                     }
-                    int key = Integer.parseInt(num);
+                    int key = Integer.parseInt(numKey);
 
                     while (bufferedReader.ready()) {
                         char[] value = bufferedReader.readLine().toCharArray();
@@ -69,11 +70,11 @@ public class Encrypt {
                     reader.close();
                     bufferedReader.close();
                     writer.close();
-                    System.out.println("Выполнено! \nСоздан файл encrypt.txt по адресу " + inPath.getParent());
+                    System.out.println("Выполнено! \nСоздан файл " + ConstantText.ENCRYPTNAMEFILE + " по адресу " + inPath.getParent() + File.separator);
 
                     QuestionExit.questionExit();
                 } else if (Files.isDirectory(inPath) || !Files.exists(inPath)) {
-                    System.err.println("По данному адресу файл не найден. Введите еще раз!");
+                    System.err.println(ConstantText.NOTENTEREDCORRECTY);
                     Encrypt.encrypt();
                 }
                 break;

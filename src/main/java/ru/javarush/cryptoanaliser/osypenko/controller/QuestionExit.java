@@ -1,5 +1,6 @@
 package ru.javarush.cryptoanaliser.osypenko.controller;
 
+import ru.javarush.cryptoanaliser.osypenko.constants.ConstantText;
 import ru.javarush.cryptoanaliser.osypenko.scan.Scan;
 
 public class QuestionExit {
@@ -7,21 +8,21 @@ public class QuestionExit {
         System.out.print("-".repeat(80));
         String textQuestion = """
                 \nВыберете команду которую Вы хотите выполнить?\s
-                menu что бы Продолжить\s
-                exit что бы Выйти\s
+                menu - что бы Продолжить\s
+                exit - что бы Выйти\s
                 \nДля выбора введите соответствующую команду""";
         System.out.println(textQuestion);
         System.out.println("-".repeat(80));
         while (true) {
             String numberFunction = Scan.scan().next();
-            if (numberFunction.equalsIgnoreCase("menu")) {
+            if (numberFunction.equalsIgnoreCase(ConstantText.MENU)) {
                 QuestionStart.questionStart();
                 break;
-            } else if (numberFunction.equalsIgnoreCase("exit")) {
-                System.out.println("До скорой встречи");
+            } else if (numberFunction.equalsIgnoreCase(ConstantText.EXIT)) {
+                System.out.println(ConstantText.GOODBYE);
                 break;
             } else {
-                System.err.println("Не правильно введено значение. Повторите еще.");
+                System.err.println(ConstantText.NOTECORRECTY);
             }
         }
     }

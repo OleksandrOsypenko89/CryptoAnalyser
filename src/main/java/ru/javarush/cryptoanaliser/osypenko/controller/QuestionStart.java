@@ -1,5 +1,6 @@
 package ru.javarush.cryptoanaliser.osypenko.controller;
 
+import ru.javarush.cryptoanaliser.osypenko.constants.ConstantText;
 import ru.javarush.cryptoanaliser.osypenko.scan.Scan;
 import ru.javarush.cryptoanaliser.osypenko.commands.Analyze;
 import ru.javarush.cryptoanaliser.osypenko.commands.BruteForce;
@@ -11,10 +12,10 @@ public class QuestionStart {
         System.out.println("-".repeat(80));
         String textQuestion = """
                 Выберете функцию которую Вы хотите выполнить?\s
-                1. Шифровка текста\s
-                2. Расшифровка текста с помощью ключа\s
-                3. Расшифровка текста с помощью brute force (перебор всех вариантов)\s
-                4. Расшифровка с помощью статистического анализа текста
+                1 - Шифровка текста\s
+                2 - Расшифровка текста с помощью ключа\s
+                3 - Расшифровка текста с помощью brute force (перебор всех вариантов)\s
+                4 - Расшифровка с помощью статистического анализа текста
                 exit - для выхода из программы. (на любом этапе выполнения программы) \s
                 menu - для возврата в главное меню. (на любом этапе выполнения программы) \s
                 \nДля выбора введите соответствующий номер функции""";
@@ -22,6 +23,7 @@ public class QuestionStart {
         System.out.println("-".repeat(80));
         questionRun();
     }
+
     public static void questionRun() {
         while (true) {
             String numberFunction = Scan.scan().next();
@@ -41,13 +43,13 @@ public class QuestionStart {
                 System.err.println("Извините но данная функция находится в разработке");
                 Analyze.analyze();
                 break;
-            } else if (numberFunction.equalsIgnoreCase("exit")) {
-                System.out.println("До скорой встречи");
+            } else if (numberFunction.equalsIgnoreCase(ConstantText.EXIT)) {
+                System.out.println(ConstantText.GOODBYE);
                 break;
-            } else if (numberFunction.equalsIgnoreCase("menu")) {
+            } else if (numberFunction.equalsIgnoreCase(ConstantText.MENU)) {
                 System.err.println("Вы уже находитесь в главном меню.");
             } else {
-                System.err.println("Не правильно введено значение. Повторите еще.");
+                System.err.println(ConstantText.NOTENTEREDCORRECTY);
             }
         }
     }
