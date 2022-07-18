@@ -94,33 +94,36 @@ public class BruteForce {
                         key++;
                     }
 
-                    System.err.println("Подобран ключ - " + key);
-                    FileInputStream fis3 = new FileInputStream(String.valueOf(inPath));
-                    Reader reader3 = new InputStreamReader(fis3);
-                    BufferedReader bufferedReader3 = new BufferedReader(reader3);
-                    Writer writer2 = new FileWriter(inPath.getParent() + File.separator + ConstantText.BRUTEFORCENAMEFILE);
-                    while (bufferedReader3.ready()) {
-                        char[] value = bufferedReader3.readLine().toCharArray();
-                        for (char c : value) {
-                            for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
-                                if (Alphabet.fullAlphabet[i] == c) {
-                                    int res = (i - key) % Alphabet.fullAlphabet.length;
-                                    if (res > 0) {
-                                        writer2.write(Alphabet.fullAlphabet[res]);
-                                    } else {
-                                        writer2.write(Alphabet.fullAlphabet[Alphabet.fullAlphabet.length - Math.abs(res)]);
+                    try {
+                        System.err.println("Подобран ключ - " + key);
+                        FileInputStream fis3 = new FileInputStream(String.valueOf(inPath));
+                        Reader reader3 = new InputStreamReader(fis3);
+                        BufferedReader bufferedReader3 = new BufferedReader(reader3);
+                        Writer writer2 = new FileWriter(inPath.getParent() + File.separator + ConstantText.BRUTEFORCENAMEFILE);
+                        while (bufferedReader3.ready()) {
+                            char[] value = bufferedReader3.readLine().toCharArray();
+                            for (char c : value) {
+                                for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
+                                    if (Alphabet.fullAlphabet[i] == c) {
+                                        int res = (i - key) % Alphabet.fullAlphabet.length;
+                                        if (res > 0) {
+                                            writer2.write(Alphabet.fullAlphabet[res]);
+                                        } else {
+                                            writer2.write(Alphabet.fullAlphabet[Alphabet.fullAlphabet.length - Math.abs(res)]);
+                                        }
                                     }
                                 }
                             }
+                            writer2.write(Alphabet.JUMP);
                         }
-                        writer2.write(Alphabet.JUMP);
+                        fis3.close();
+                        reader3.close();
+                        bufferedReader3.close();
+                        writer2.close();
+                        System.out.println("Выполнено! \nСоздан файл " + ConstantText.BRUTEFORCENAMEFILE + " по адресу " + inPath.getParent() + File.separator);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("Возникла ошибка при выполнении операции. Ключ к зашифрованному тексту - " + (key + 1) + ". \nВоспользуйся функцией Расшифровка текста с помощью ключа");
                     }
-                    fis3.close();
-                    reader3.close();
-                    bufferedReader3.close();
-                    writer2.close();
-
-                    System.out.println("Выполнено! \nСоздан файл " + ConstantText.BRUTEFORCENAMEFILE + " по адресу " + inPath.getParent() + File.separator);
 
                     QuestionExit.questionExit();
                 } else if (Files.isDirectory(inPath) || !Files.exists(inPath)) {
