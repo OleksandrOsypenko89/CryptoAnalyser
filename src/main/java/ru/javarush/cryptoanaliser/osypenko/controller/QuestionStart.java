@@ -49,7 +49,7 @@ public class QuestionStart {
             } else if (numberFunction.equalsIgnoreCase(ConstantText.MENU)) {
                 System.err.println("Вы уже находитесь в главном меню.");
             } else {
-                System.err.println(ConstantText.NOTENTEREDCORRECTY);
+                System.err.println(ConstantText.NOTECORRECTY);
             }
         }
     }

@@ -38,8 +38,8 @@ public class Decrypt {
                     BufferedReader bufferedReader = new BufferedReader(reader);
                     Writer writer = new FileWriter(inPath.getParent() + File.separator + ConstantText.DECRYPTNAMEFILE);
 
-                    System.out.println(ConstantText.NUMBERKEY);
-                    String numKey = Scan.scan().next();
+                    System.out.println(ConstantText.NUMBERKEYD);
+                    String numKey = Scan.scan().nextLine();
                     if (numKey.equalsIgnoreCase(ConstantText.EXIT)) {
                         System.out.println(ConstantText.GOODBYE);
                         break;
@@ -65,7 +65,6 @@ public class Decrypt {
                         }
                         writer.write(Alphabet.JUMP);
                     }
-
                     fis.close();
                     reader.close();
                     bufferedReader.close();

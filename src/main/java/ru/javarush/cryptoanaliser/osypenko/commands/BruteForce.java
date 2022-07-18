@@ -33,11 +33,11 @@ public class BruteForce {
                 }
 
                 if (Files.exists(inPath)) {
-                    String[] keyWord = new String[]{"нет", "как", "или", "все", "это", "вам"};
-                    int num = 0;
+                    String[] keyWord = new String[]{"может", "нет", "как", "или", "все", "это", "вам", "вас", "что"};
+                    int key = 0;
                     boolean flag = true;
 
-                    while (num < Alphabet.fullAlphabet.length) {
+                    while (key < Alphabet.fullAlphabet.length) {
                         FileInputStream fis1 = new FileInputStream(String.valueOf(inPath));
                         Reader reader1 = new InputStreamReader(fis1);
                         BufferedReader bufferedReader1 = new BufferedReader(reader1);
@@ -49,11 +49,11 @@ public class BruteForce {
                             for (char c : value) {
                                 for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
                                     if (Alphabet.fullAlphabet[i] == c) {
-                                        int res = (i - num) % Alphabet.fullAlphabet.length;
+                                        int res = (i - key) % Alphabet.fullAlphabet.length;
                                         if (res > 0) {
                                             writer1.write(Alphabet.fullAlphabet[res]);
                                         } else {
-                                            writer1.write(Alphabet.fullAlphabet[152 - Math.abs(res)]);
+                                            writer1.write(Alphabet.fullAlphabet[Alphabet.fullAlphabet.length - Math.abs(res) - 1]);
                                         }
                                     }
                                 }
@@ -75,7 +75,11 @@ public class BruteForce {
                                         b.equalsIgnoreCase(keyWord[1]) ||
                                         b.equalsIgnoreCase(keyWord[2]) ||
                                         b.equalsIgnoreCase(keyWord[3]) ||
-                                        b.equalsIgnoreCase(keyWord[4])) {
+                                        b.equalsIgnoreCase(keyWord[4]) ||
+                                        b.equalsIgnoreCase(keyWord[5]) ||
+                                        b.equalsIgnoreCase(keyWord[6]) ||
+                                        b.equalsIgnoreCase(keyWord[7]) ||
+                                        b.equalsIgnoreCase(keyWord[8])) {
                                     flag = false;
                                     break;
                                 }
@@ -87,8 +91,35 @@ public class BruteForce {
                         if (!flag) {
                             break;
                         }
-                        num++;
+                        key++;
                     }
+
+                    System.err.println("Подобран ключ - " + key);
+                    FileInputStream fis3 = new FileInputStream(String.valueOf(inPath));
+                    Reader reader3 = new InputStreamReader(fis3);
+                    BufferedReader bufferedReader3 = new BufferedReader(reader3);
+                    Writer writer2 = new FileWriter(inPath.getParent() + File.separator + ConstantText.BRUTEFORCENAMEFILE);
+                    while (bufferedReader3.ready()) {
+                        char[] value = bufferedReader3.readLine().toCharArray();
+                        for (char c : value) {
+                            for (int i = 0; i < Alphabet.fullAlphabet.length; i++) {
+                                if (Alphabet.fullAlphabet[i] == c) {
+                                    int res = (i - key) % Alphabet.fullAlphabet.length;
+                                    if (res > 0) {
+                                        writer2.write(Alphabet.fullAlphabet[res]);
+                                    } else {
+                                        writer2.write(Alphabet.fullAlphabet[Alphabet.fullAlphabet.length - Math.abs(res)]);
+                                    }
+                                }
+                            }
+                        }
+                        writer2.write(Alphabet.JUMP);
+                    }
+                    fis3.close();
+                    reader3.close();
+                    bufferedReader3.close();
+                    writer2.close();
+
                     System.out.println("Выполнено! \nСоздан файл " + ConstantText.BRUTEFORCENAMEFILE + " по адресу " + inPath.getParent() + File.separator);
 
                     QuestionExit.questionExit();

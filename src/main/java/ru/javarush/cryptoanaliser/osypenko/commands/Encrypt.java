@@ -29,7 +29,7 @@ public class Encrypt {
                     }
                     inPath = Path.of(scanRes);
                 } else {
-                    inPath = Path.of(PathFinder.getRoot() + "text.txt");
+                    inPath = Path.of(PathFinder.getRoot() + ConstantText.TEXT);
                 }
 
                 if (Files.exists(inPath)) {
@@ -38,16 +38,21 @@ public class Encrypt {
                     BufferedReader bufferedReader = new BufferedReader(reader);
                     Writer writer = new FileWriter(inPath.getParent() + File.separator + ConstantText.ENCRYPTNAMEFILE);
 
-                    System.out.println(ConstantText.NUMBERKEY);
-                    String numKey = Scan.scan().next();
+                    System.out.println(ConstantText.NUMBERKEYE);
+                    String numKey = Scan.scan().nextLine();
+                    int key;
                     if (numKey.equalsIgnoreCase(ConstantText.EXIT)) {
                         System.out.println(ConstantText.GOODBYE);
                         break;
                     } else if (numKey.equalsIgnoreCase(ConstantText.MENU)) {
                         QuestionStart.questionStart();
                         break;
+                    } else if (numKey.equalsIgnoreCase("")) {
+                        key = (int) (Math.random() * 48) + 1;
+                        System.err.println("Ваш ключ - " + key + ". Запомните его!");
+                    } else {
+                        key = Integer.parseInt(numKey);
                     }
-                    int key = Integer.parseInt(numKey);
 
                     while (bufferedReader.ready()) {
                         char[] value = bufferedReader.readLine().toCharArray();
@@ -65,7 +70,6 @@ public class Encrypt {
                         }
                         writer.write(Alphabet.JUMP);
                     }
-
                     fis.close();
                     reader.close();
                     bufferedReader.close();
