@@ -9,18 +9,7 @@ import ru.javarush.cryptoanaliser.osypenko.commands.Encrypt;
 
 public class QuestionStart {
     public static void questionStart() {
-        System.out.println("-".repeat(80));
-        String textQuestion = """
-                Выберете функцию которую Вы хотите выполнить?\s
-                1 - Шифровка текста\s
-                2 - Расшифровка текста с помощью ключа\s
-                3 - Расшифровка текста с помощью brute force (перебор всех вариантов)\s
-                4 - Расшифровка с помощью статистического анализа текста
-                exit - для выхода из программы. (на любом этапе выполнения программы) \s
-                menu - для возврата в главное меню. (на любом этапе выполнения программы) \s
-                \nДля выбора введите соответствующий номер функции""";
-        System.out.println(textQuestion);
-        System.out.println("-".repeat(80));
+        System.out.println(ConstantText.REPEAT + "\n" + ConstantText.TEXTQUESTIONSTART + "\n" + ConstantText.REPEAT);
         questionRun();
     }
 
@@ -28,26 +17,26 @@ public class QuestionStart {
         while (true) {
             String numberFunction = Scan.scan().next();
             if (numberFunction.equals("1")) {
-                System.out.println("Вы выбрали Шифрование текста");
+                System.out.println(ConstantText.ONE);
                 Encrypt.encrypt();
                 break;
             } else if (numberFunction.equals("2")) {
-                System.out.println("Вы выбрали Дешифрование текста");
+                System.out.println(ConstantText.TWO);
                 Decrypt.decrypt();
                 break;
             } else if (numberFunction.equals("3")) {
-                System.out.println("Вы выбрали Расшифровка текста с помощью brute force (перебор всех вариантов)");
+                System.out.println(ConstantText.THREE);
                 BruteForce.bruteForce();
                 break;
             } else if (numberFunction.equals("4")) {
-                System.err.println("Извините но данная функция находится в разработке");
+                System.err.println(ConstantText.FOUR);
                 Analyze.analyze();
                 break;
             } else if (numberFunction.equalsIgnoreCase(ConstantText.EXIT)) {
                 System.out.println(ConstantText.GOODBYE);
                 break;
             } else if (numberFunction.equalsIgnoreCase(ConstantText.MENU)) {
-                System.err.println("Вы уже находитесь в главном меню.");
+                System.err.println(ConstantText.ONTHEMENU);
             } else {
                 System.err.println(ConstantText.NOTECORRECTY);
             }

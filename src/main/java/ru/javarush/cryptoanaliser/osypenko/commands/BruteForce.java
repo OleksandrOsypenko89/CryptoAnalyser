@@ -95,7 +95,6 @@ public class BruteForce {
                     }
 
                     try {
-                        System.err.println("Подобран ключ - " + key);
                         FileInputStream fis3 = new FileInputStream(String.valueOf(inPath));
                         Reader reader3 = new InputStreamReader(fis3);
                         BufferedReader bufferedReader3 = new BufferedReader(reader3);
@@ -116,13 +115,15 @@ public class BruteForce {
                             }
                             writer2.write(Alphabet.JUMP);
                         }
+                        System.err.println("Подобран ключ - " + key);
                         fis3.close();
                         reader3.close();
                         bufferedReader3.close();
                         writer2.close();
                         System.out.println("Выполнено! \nСоздан файл " + ConstantText.BRUTEFORCENAMEFILE + " по адресу " + inPath.getParent() + File.separator);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.err.println("Возникла ошибка при выполнении операции. Ключ к зашифрованному тексту - " + (key + 1) + ". \nВоспользуйся функцией Расшифровка текста с помощью ключа");
+                        System.err.println("Возникла ошибка при выполнении операции. Ключ к зашифрованному тексту - " + (key + 1) + ". " +
+                                "\nВоспользуйтесь функцией Расшифровка текста с помощью ключа");
                     }
 
                     QuestionExit.questionExit();

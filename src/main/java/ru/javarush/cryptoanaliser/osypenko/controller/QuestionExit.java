@@ -5,14 +5,7 @@ import ru.javarush.cryptoanaliser.osypenko.scan.Scan;
 
 public class QuestionExit {
     public static void questionExit() {
-        System.out.print("-".repeat(80));
-        String textQuestion = """
-                \nВыберете команду которую Вы хотите выполнить?\s
-                menu - что бы Продолжить\s
-                exit - что бы Выйти\s
-                \nДля выбора введите соответствующую команду""";
-        System.out.println(textQuestion);
-        System.out.println("-".repeat(80));
+        System.out.println(ConstantText.REPEAT + "\n" + ConstantText.TEXTQUESTIONEXIT + "\n" + ConstantText.REPEAT);
         while (true) {
             String numberFunction = Scan.scan().next();
             if (numberFunction.equalsIgnoreCase(ConstantText.MENU)) {
